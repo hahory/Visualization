@@ -21,9 +21,23 @@ accident2020<-subset(traffic,traffic$기간=='2020')#accident2020<-subset(traffi
 #합계가 적힌 행을 빼주기
 accident2020<-accident2020[-1,]
 
-#막대그래프 그리기
+#막대그래프 그리기(발생건수 비교)
 p5<-ggplot(data = accident2020, aes(x=지역,y=발생건수))
 #geom_bar() 안에 반드시 stat='identity'를 입력해주어야 함. stat은 ‘통계’의 뜻을 가진 ‘Statistic’의 약자로, bar 그래프의 형태에 대해 지정해 줌. identity는 y축 값의 높이를 데이터를 기반으로 정해줄 때 사용함.(즉, stat='identity'는 y축의 높이를 데이터의 값으로 하는 bar그래프의 형태로 지정한다는 것)
 p5<-p5+geom_bar(stat='identity',colour='gray',fill='blue')
 p5<-p5+ggtitle('2020년 서울시 각 구별 교통사고 발생건수')
 p5
+
+#막대그래프 그리기(부상자수 비교)
+p6<-ggplot(data = accident2020, aes(x=지역,y=부상자수))
+#geom_bar() 안에 반드시 stat='identity'를 입력해주어야 함. stat은 ‘통계’의 뜻을 가진 ‘Statistic’의 약자로, bar 그래프의 형태에 대해 지정해 줌. identity는 y축 값의 높이를 데이터를 기반으로 정해줄 때 사용함.(즉, stat='identity'는 y축의 높이를 데이터의 값으로 하는 bar그래프의 형태로 지정한다는 것)
+p6<-p6+geom_bar(stat='identity',colour='gray',fill='green')
+p6<-p6+ggtitle('2020년 서울시 각 구별 교통사고 부상자수')
+p6
+
+#막대그래프 그리기(사망자수 비교)
+p7<-ggplot(data = accident2020, aes(x=지역,y=사망자수))
+#geom_bar() 안에 반드시 stat='identity'를 입력해주어야 함. stat은 ‘통계’의 뜻을 가진 ‘Statistic’의 약자로, bar 그래프의 형태에 대해 지정해 줌. identity는 y축 값의 높이를 데이터를 기반으로 정해줄 때 사용함.(즉, stat='identity'는 y축의 높이를 데이터의 값으로 하는 bar그래프의 형태로 지정한다는 것)
+p7<-p7+geom_bar(stat='identity',colour='gray',fill='red')
+p7<-p7+ggtitle('2020년 서울시 각 구별 교통사고 사망자수')
+p7
