@@ -41,3 +41,23 @@ p7<-ggplot(data = accident2020, aes(x=지역,y=사망자수))
 p7<-p7+geom_bar(stat='identity',colour='gray',fill='red')
 p7<-p7+ggtitle('2020년 서울시 각 구별 교통사고 사망자수')
 p7
+
+
+#히트맵(여러 가지 변수들을 비교해볼 수 있음) 그리기
+#히트맵은 R의 heatmap()함수를 이용하는데 이 함수는 데이터를 행렬 객체를 사용하므로 기존의 데이터프레임을 객체를 행렬 객체로 변경해야 함.
+head(accident2020)
+class(accident2020)
+rownames(accident2020)<-accident2020$지역
+accident2020<-accident2020[,c(3:5)]
+accident2020_matrix<-data.matrix(accident2020)
+#데이터프레임->matrix로 변경되었음을 확인
+class(accident2020_matrix)
+#히트맵 그리기
+heatmap(accident2020_matrix,Rowv = NA,Colv = NA,col=cm.colors(256),scale = 'column',margin=c(5,5), cexCol = 1)
+
+
+#버블챠트 그리기(지역별 교통사고 발생현황 비교)
+bp<-ggplot(data = accident2020, aes(x=발생건수, y=부상자수))
+bp<-bp+scale_fill_brewer(palette = 'Set1')+geom_point(aes(size=사망자수),shape=16, color='blue', alpha=0.55)
+bp<-bp+ggtitle('2020년 교통사고 발생현황에 대한 버블챠트')
+bp
