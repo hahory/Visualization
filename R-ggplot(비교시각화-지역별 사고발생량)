@@ -1,0 +1,29 @@
+#데이터 불러오기
+traffic<-read.csv('trafficAccident.csv',sep=',',header = TRUE,encoding='EUC-KR')
+#head()함수를 이용하여 필요없는 변수를 확인하고 제외시키기
+head(traffic)
+traffic<-traffic[,c(1,2,3,5,7)]
+#str()함수를 이용하여 데이터타입을 확인
+str(traffic)
+#발생건수와 부상자에서 천단위로 ,가 표시되어 chr타입으로 분류되었으므로 ,를 삭제
+traffic$발생건수<-gsub(',','',traffic$발생건수)
+traffic$부상자수<-gsub(',','',traffic$부상자수)
+#발생건수와 부상자를 chr->int로 타입변환 시켜주기
+traffic$발생건수<-as.numeric(traffic$발생건수)
+traffic$부상자수<-as.numeric(traffic$부상자수)
+#변환이 잘 되었는지 데이터 구조를 다시 확인
+str(traffic)
+
+#시각화를 위한 패키지 설치 및 불러오기
+library(ggplot2)
+head(traffic)
+accident2020<-subset(traffic,traffic$기간=='2020')#accident2020<-subset(traffic[traffic$기간=='2020',])로도 쓸 수 있음
+#합계가 적힌 행을 빼주기
+accident2020<-accident2020[-1,]
+
+#막대그래프 그리기
+p5<-ggplot(data = accident2020, aes(x=지역,y=발생건수))
+#geom_bar() 안에 반드시 stat='identity'를 입력해주어야 함. stat은 ‘통계’의 뜻을 가진 ‘Statistic’의 약자로, bar 그래프의 형태에 대해 지정해 줌. identity는 y축 값의 높이를 데이터를 기반으로 정해줄 때 사용함.(즉, stat='identity'는 y축의 높이를 데이터의 값으로 하는 bar그래프의 형태로 지정한다는 것)
+p5<-p5+geom_bar(stat='identity',colour='gray',fill='blue')
+p5<-p5+ggtitle('2020년 서울시 각 구별 교통사고 발생건수')
+p5
