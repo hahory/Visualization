@@ -6,19 +6,26 @@ head(traffic)
 library(ggplot2)
 junggu<-subset(traffic,지역=='중구')
 junggu<-junggu[,c(1,2,3,5,7)]
+
+#몰랐던 부분(항상 데이터 타입 확인할 것)#################################################################
 #junggu의 데이터 구조를 확인
 str(junggu)
+
 #발생건수와 부상자에서 천단위로 ,가 표시되어 chr타입으로 분류되었으므로 ,를 삭제
 junggu$발생건수<-gsub(',','',junggu$발생건수)
 junggu$부상자수<-gsub(',','',junggu$부상자수)
+
 #발생건수와 부상자를 chr->int로 타입변환 시켜주기
 junggu$발생건수<-as.numeric(junggu$발생건수)
 junggu$부상자수<-as.numeric(junggu$부상자수)
+
 #junggu의 데이터 구조를 다시 확인
 str(junggu)
+
 #그래프그리기
 p1<-ggplot(data = junggu,aes(x=기간,y=발생건수))
 p1<-p1+geom_point(aes(x=기간,y=발생건수))
+
 #y축 최대값 설정을 위해 발생건수의 최대값 확인
 max(junggu$발생건수)
 p1<-p1+xlim(2010,2020)+ylim(0,1600)
