@@ -1,0 +1,37 @@
+###기본그래프 그리기
+
+#matplotlib.pyplot 모듈의 plot()은 선 (Line) 또는 마커 (Marker) 그래프 그리기에 사용되는 함수
+#plot() 함수에 하나의 리스트 형태로 입력하면 y값으로 인식하고 x값은 [0,1,2,3]이 됨.
+#(plot([2, 3, 5, 10])은 plot((2, 3, 5, 10)) 또는 plot(np.array([2, 3, 5, 10])와 같이 파이썬 튜플 또는 Numpy 어레이의 형태로도 데이터를 입력할 수 있음
+
+
+import matplotlib.pyplot as plt
+#plot() 함수는 리스트의 값들이 y 값들이라고 가정하고, x 값 [0, 1, 2, 3]을 자동으로 만들어냄
+plt.plot([1, 2, 3, 4])
+#show() 함수는 그래프를 화면에 나타나도록 함
+plt.show()
+
+import matplotlib.pyplot as plt
+# 앞의 리스트는 x축, 뒤에 리스트는 y축 값이 되는듯?!
+plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+# show() 함수는 그래프를 화면에 나타나도록 함
+plt.show
+
+import matplotlib.pyplot as plt
+# ro:red o, b-:blue -
+#리스트가 2개면 앞 리스트는 x값, 뒤 리스트는 y값이 됨
+plt.plot([1, 2, 3, 4], [1, 4, 9, 16], 'ro')
+# axis() 함수를 이용해서 축의 범위 [xmin, xmax, ymin, ymax]를 지정
+plt.axis([0, 6, 0, 20])
+# show() 함수는 그래프를 화면에 나타나도록 함
+plt.show()
+
+###여러개의 그래프 그리기
+import matplotlib.pyplot as plt
+#Matplotlib에서는 일반적으로 NumPy 어레이를 이용
+import numpy as np
+#200ms간격으로 균일하게 샘플된 시간
+t = np.arange(0., 5., .2)
+#빨간 대쉬, 파란 사각형, 녹색 삼각형
+plt.plot(t, t, 'r--', t, t**2, 'bs', t, t**3, 'g^')
+plt.show()
